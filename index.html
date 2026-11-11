@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wolf &amp; Raven — семейный фотограф в Витебске</title>
+<meta name="description" content="Семейная фотосъёмка в Витебске: малыши, беременность, «Поколения», абонемент на первый год. Выезд по городу бесплатно, фото через 7 дней.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fraunces:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@400;500;600&family=Oswald:wght@500;600&family=Lora:ital,wght@0,400;0,600;1,400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#efe3cc;--paper2:#e7d7ba;--ink:#241a12;--rust:#b5451b;--mustard:#d99a1c;--teal:#2c6a5b;--line:#cbb894;--muted:#5a4a38;
+  --disp:'Bebas Neue','Oswald',sans-serif;
+  --serif:'Fraunces','Lora',serif;
+  --sans:'Space Grotesk','Manrope',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.6;overflow-x:hidden;
+  background-image:radial-gradient(rgba(36,26,18,.05) 1px,transparent 1px);background-size:4px 4px}
+img{max-width:100%}
+.disp{font-family:var(--disp);letter-spacing:.02em;line-height:.9}
+/* цифры внутри русских строк — шрифтом с кириллицей, чтобы не были мельче букв */
+.hero .band,.stamp{font-family:'Oswald',sans-serif!important;font-weight:500}
+.serif{font-family:var(--serif)}
+.wrap{max-width:1140px;margin:0 auto;padding:0 30px}
+@media(max-width:600px){.wrap{padding:0 16px}}
+a{color:inherit;text-decoration:none}
+.rv{opacity:0;transform:translateY(18px);transition:.8s}.rv.in{opacity:1;transform:none}
+.stamp{display:inline-flex;align-items:center;justify-content:center;width:150px;height:150px;border:2px solid var(--rust);color:var(--rust);border-radius:50%;
+  font-family:var(--disp);font-size:16px;letter-spacing:.1em;transform:rotate(-11deg);text-align:center;line-height:1.05;outline:1px dashed var(--rust);outline-offset:-10px}
+
+/* nav */
+nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 30px;border-bottom:3px double var(--ink);position:sticky;top:0;background:var(--paper);z-index:40}
+nav .logo{font-family:var(--disp);font-size:30px;letter-spacing:.06em;white-space:nowrap}
+nav .logo b{color:var(--rust);font-weight:400}
+.nav-links{display:flex;gap:24px;font-size:13px;text-transform:uppercase;letter-spacing:.1em;font-weight:500}
+.nav-links a:hover{color:var(--rust)}
+.nav-cta{font-family:var(--disp);font-size:18px;letter-spacing:.08em;border:2px solid var(--ink);padding:6px 16px;background:var(--rust);color:var(--paper);box-shadow:3px 3px 0 var(--ink);white-space:nowrap}
+@media(max-width:860px){.nav-links{display:none}}
+@media(max-width:600px){nav{padding:12px 16px}nav .logo{font-size:24px}.nav-cta{font-size:15px;padding:5px 12px}}
+
+/* hero */
+.hero{padding:52px 0 44px;position:relative}
+.hero .band{display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-family:var(--disp);font-size:16px;letter-spacing:.2em;color:var(--teal);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:8px 0;margin-bottom:30px}
+.hero .band span{white-space:nowrap}.hero .band .dot{width:7px;height:7px;background:var(--rust);border-radius:50%;flex:none}
+.hero h1{font-family:var(--disp);font-weight:600;font-size:clamp(58px,13vw,176px);line-height:1.1;color:var(--ink);text-transform:uppercase}
+.hero h1 em{font-style:normal;color:var(--rust)}
+.hero .row{display:grid;grid-template-columns:1fr 300px;gap:30px;align-items:end;margin-top:30px}
+.hero .row p{font-family:var(--serif);font-size:20px;max-width:560px}
+.hero .stamp{justify-self:end}
+.btn{display:inline-block;font-family:var(--disp);font-size:22px;letter-spacing:.08em;background:var(--rust);color:var(--paper);cursor:pointer;
+  padding:12px 30px;border:2px solid var(--ink);box-shadow:5px 5px 0 var(--ink);transition:.12s;text-align:center}
+.btn:hover{transform:translate(2px,2px);box-shadow:3px 3px 0 var(--ink)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.teal{background:var(--teal)}
+@media(max-width:720px){.hero .row{grid-template-columns:1fr}.hero .stamp{display:none}.hero .row p{font-size:18px}.btn{font-size:20px;padding:11px 22px}}
+
+/* film strip of photo placeholders */
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
+.frame{aspect-ratio:4/5;border:2px solid var(--ink);position:relative;overflow:hidden;box-shadow:5px 5px 0 var(--ink)}
+.frame::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(36,26,18,.18) 1px,transparent 1px);background-size:3px 3px;mix-blend-mode:multiply}
+.frame .cap{position:absolute;left:10px;bottom:10px;right:10px;font-family:var(--disp);font-size:15px;letter-spacing:.1em;color:var(--paper);z-index:2;text-shadow:0 1px 0 rgba(0,0,0,.25)}
+.frame svg{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);width:46%;opacity:.9;z-index:1}
+.frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;filter:sepia(.18) saturate(.9) contrast(1.03)}
+.frame img+svg{display:none}
+.frame:has(img)::before{content:"";position:absolute;inset:auto 0 0 0;height:40%;background:linear-gradient(transparent,rgba(36,26,18,.55) 45%,rgba(36,26,18,.9));z-index:2}
+.frame:has(img) .cap{z-index:3;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+.credits{font-family:var(--sans);font-size:11px;letter-spacing:.02em;color:var(--muted);width:100%;line-height:1.6}
+.credits a{color:inherit}
+.f1{background:radial-gradient(circle at 30% 25%,#e9b27a,transparent 55%),linear-gradient(160deg,#c46a3a,#7a3216)}
+.f2{background:radial-gradient(circle at 70% 30%,#9cc2b0,transparent 55%),linear-gradient(160deg,#2c6a5b,#173d34)}
+.f3{background:radial-gradient(circle at 40% 30%,#f2d27a,transparent 55%),linear-gradient(160deg,#d99a1c,#8a5a0c)}
+.f4{background:radial-gradient(circle at 60% 25%,#d9b9a0,transparent 55%),linear-gradient(160deg,#7d5a44,#3b2a1f)}
+.strip-note{font-size:12px;color:var(--muted);margin-top:14px;letter-spacing:.04em}
+@media(max-width:720px){.strip{grid-template-columns:repeat(2,1fr);gap:12px}}
+
+/* ticker */
+.tick{background:var(--ink);color:var(--paper);overflow:hidden;padding:9px 0}
+.tick .r{display:flex;width:max-content;white-space:nowrap;font-family:var(--disp);font-size:20px;letter-spacing:.14em;animation:sc 26s linear infinite}
+.tick .r span{padding-right:36px}
+.tick .r em{color:var(--mustard);font-style:normal}
+@keyframes sc{to{transform:translateX(-50%)}}
+
+section{padding:clamp(56px,8vw,96px) 0;border-bottom:2px solid var(--line)}
+.h2{font-family:var(--disp);font-weight:600;font-size:clamp(40px,7vw,86px);line-height:1.08;margin-bottom:10px;text-transform:uppercase}
+.h2 em{font-style:normal;color:var(--rust)}
+.lead{font-family:var(--serif);font-style:italic;color:var(--teal);font-size:19px;margin-bottom:38px;max-width:680px}
+
+/* about */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.about .card{border:2px solid var(--ink);background:var(--paper2);aspect-ratio:1/1;position:relative;box-shadow:8px 8px 0 var(--teal);
+  background-image:repeating-linear-gradient(45deg,rgba(36,26,18,.05) 0 6px,transparent 6px 12px);display:flex;flex-direction:column;gap:10px;align-items:center;justify-content:center;text-align:center;padding:20px}
+.about .card .big{font-family:var(--disp);font-size:clamp(80px,12vw,130px);color:var(--rust);line-height:.9}
+.about .card small{font-family:var(--disp);font-size:16px;letter-spacing:.14em;color:var(--muted)}
+.about p{font-family:var(--serif);font-size:18px;margin-bottom:16px}
+.about ul{list-style:none;margin-top:8px;border-top:2px solid var(--ink)}
+.about li{padding:10px 0;border-bottom:1px dashed var(--line);display:flex;gap:12px;font-size:15px}
+.about li b{font-family:var(--disp);font-size:18px;color:var(--rust);min-width:28px;font-weight:400}
+.about .card.photo{background:#15120f;overflow:hidden;justify-content:flex-end;padding:0}
+.about .card.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:sepia(.25) contrast(1.05)}
+.about .card.photo::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(239,227,204,.07) 1px,transparent 1px);background-size:3px 3px;pointer-events:none}
+.about .card .note{position:relative;z-index:2;margin:0 22px 22px;padding:16px 18px;border:2px dashed var(--paper);background:rgba(21,18,15,.55);color:var(--paper)}
+.about .card .note b{display:block;font-family:var(--disp);font-weight:400;font-size:clamp(20px,2.6vw,26px);letter-spacing:.08em;line-height:1.15}
+.about .card .note span{display:block;margin-top:6px;font-family:var(--serif);font-style:italic;font-size:15px;opacity:.85}
+@media(max-width:720px){.about{grid-template-columns:1fr;gap:32px}.about .card{order:-1}.about p{font-size:17px}}
+
+/* services */
+.menu{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--ink);border:2px solid var(--ink)}
+.item{padding:26px 22px;background:var(--paper);display:flex;flex-direction:column;position:relative}
+.item.hl{background:var(--paper2)}
+.item .n{font-family:var(--disp);font-size:15px;color:var(--mustard);letter-spacing:.1em}
+.item h3{font-family:var(--disp);font-weight:600;font-size:28px;line-height:1;margin:8px 0 10px;text-transform:uppercase}
+.item p{font-size:14px;color:var(--muted)}
+.item ul{list-style:none;font-size:14px;margin:14px 0 0;flex:1}
+.item li{padding:5px 0 5px 18px;position:relative;border-top:1px dashed var(--line)}
+.item li::before{content:"✶";position:absolute;left:0;color:var(--rust);font-size:12px;top:7px}
+.item .pr{font-family:var(--serif);font-weight:600;font-size:24px;color:var(--rust);margin-top:16px}
+.item .pr small{font-family:var(--sans);font-weight:400;font-size:13px;color:var(--muted)}
+.item .tag{position:absolute;top:14px;right:14px;font-family:var(--disp);font-size:13px;letter-spacing:.1em;background:var(--teal);color:var(--paper);padding:3px 8px}
+.incl{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 22px;font-size:14px}
+.incl span::before{content:"● ";color:var(--rust)}
+@media(max-width:980px){.menu{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.menu{grid-template-columns:1fr}}
+
+/* calculator */
+.calc{display:grid;grid-template-columns:1.25fr 1fr;gap:30px;align-items:start}
+.calc fieldset{border:2px solid var(--ink);padding:20px;margin-bottom:18px;background:var(--paper)}
+.calc legend{font-family:var(--disp);font-size:20px;letter-spacing:.08em;padding:0 8px;background:var(--paper)}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt span{display:block;border:2px solid var(--ink);padding:10px 12px;cursor:pointer;font-size:14px;line-height:1.35;background:var(--paper);transition:.12s;height:100%}
+.opt span b{display:block;font-family:var(--disp);font-size:19px;letter-spacing:.04em;font-weight:400}
+.opt input:checked+span{background:var(--ink);color:var(--paper);box-shadow:3px 3px 0 var(--rust)}
+.opt input:focus-visible+span{outline:3px solid var(--mustard);outline-offset:2px}
+.chk{display:flex;gap:12px;align-items:flex-start;font-size:15px;cursor:pointer}
+.chk input{width:20px;height:20px;accent-color:var(--rust);margin-top:2px;flex:none}
+.receipt{border:2px solid var(--ink);background:#f6eedd;padding:26px 24px;box-shadow:8px 8px 0 var(--ink);position:sticky;top:96px;min-width:0}
+.receipt .t{font-family:var(--disp);font-size:24px;letter-spacing:.12em;text-align:center;border-bottom:2px dashed var(--ink);padding-bottom:12px;margin-bottom:12px}
+.receipt .ln{display:flex;justify-content:space-between;gap:12px;font-size:14px;padding:6px 0;border-bottom:1px dotted var(--line)}
+.receipt .ln span:last-child{text-align:right;font-weight:600}
+.receipt .tot{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:14px;padding-top:12px;border-top:2px dashed var(--ink)}
+.receipt .tot b{font-family:var(--disp);font-size:20px;letter-spacing:.08em;font-weight:400}
+.receipt .tot strong{font-family:var(--serif);font-size:38px;color:var(--rust);line-height:1}
+.receipt .pre{font-size:14px;margin-top:8px;color:var(--teal);font-weight:600}
+.receipt .note{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.5}
+.receipt .btn{width:100%;margin-top:18px}
+@media(max-width:860px){.calc{grid-template-columns:1fr}.receipt{position:static}}
+@media(max-width:480px){.opts{grid-template-columns:1fr}}
+
+/* advantages */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--ink);border:2px solid var(--ink);margin-bottom:44px}
+.st{padding:24px 16px;text-align:center;background:var(--paper)}
+.st b{display:block;font-family:var(--disp);font-size:clamp(44px,6vw,60px);color:var(--rust);line-height:1;font-weight:400}
+.st span{font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+@media(max-width:720px){.stats{grid-template-columns:1fr 1fr}}
+.fears{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:2px solid var(--ink)}
+.fear{padding:22px 24px 22px 0;border-bottom:2px solid var(--line);display:grid;grid-template-columns:44px 1fr;gap:14px}
+.fear:nth-child(odd){padding-right:34px;border-right:2px solid var(--line)}
+.fear:nth-child(even){padding-left:30px}
+.fear .i{font-family:var(--disp);font-size:30px;color:var(--teal);line-height:1}
+.fear h4{font-family:var(--serif);font-style:italic;font-weight:600;font-size:18px;margin-bottom:6px}
+.fear p{font-size:15px;color:var(--muted)}
+@media(max-width:720px){.fears{grid-template-columns:1fr}.fear,.fear:nth-child(odd),.fear:nth-child(even){padding:18px 0;border-right:none}}
+
+/* reviews */
+.revs{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.rev{border:2px solid var(--ink);background:var(--paper2);padding:26px 22px;position:relative;box-shadow:5px 5px 0 var(--ink)}
+.rev .q{font-family:var(--disp);font-size:70px;line-height:.6;color:var(--rust);display:block;margin-bottom:8px}
+.rev p{font-family:var(--serif);font-size:17px;font-style:italic}
+.rev .who{margin-top:16px;font-size:13px;text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+.rev .ex{position:absolute;top:-12px;right:14px;background:var(--mustard);color:var(--ink);font-family:var(--disp);font-size:13px;letter-spacing:.1em;padding:3px 9px;border:2px solid var(--ink)}
+.rev-note{margin-top:26px;font-size:14px;color:var(--muted);border-left:4px solid var(--teal);padding-left:14px}
+.rev.slot{background:#15120f;color:var(--paper);min-height:300px;display:flex;flex-direction:column;justify-content:flex-end;padding:22px}
+.rev.slot::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(239,227,204,.07) 1px,transparent 1px);background-size:3px 3px;pointer-events:none}
+.rev.slot .q{position:absolute;top:34px;left:22px;font-size:120px;opacity:.9}
+.rev.slot .ex{background:var(--mustard)}
+.rev.slot .note{position:relative;z-index:2;padding:16px 18px;border:2px dashed var(--paper);background:rgba(239,227,204,.06)}
+.rev.slot .note b{display:block;font-family:var(--disp);font-weight:400;font-size:clamp(20px,2.2vw,24px);letter-spacing:.08em;line-height:1.15}
+.rev.slot .note span{display:block;margin-top:6px;font-family:var(--serif);font-style:italic;font-size:15px;opacity:.85}
+@media(max-width:860px){.revs{grid-template-columns:1fr}.rev.slot{min-height:240px}}
+
+/* contact */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:0;border:2px solid var(--ink)}
+.contact .l{padding:40px;background:var(--teal);color:var(--paper);min-width:0}
+.contact .l h2{font-family:var(--disp);font-weight:600;font-size:clamp(40px,6vw,72px);line-height:1.15;text-transform:uppercase}
+.contact .l>p{font-family:var(--serif);margin-top:14px;font-size:17px}
+.steps{list-style:none;margin-top:24px;counter-reset:s}
+.steps li{counter-increment:s;display:grid;grid-template-columns:38px 1fr;gap:10px;padding:9px 0;border-top:1px dashed rgba(239,227,204,.35);font-size:14px}
+.steps li::before{content:counter(s,decimal-leading-zero);font-family:var(--disp);font-size:22px;color:var(--mustard);line-height:1.1}
+.policy{margin-top:20px;font-size:13px;background:rgba(0,0,0,.14);padding:14px 16px;border:1px solid rgba(239,227,204,.4)}
+.policy b{font-family:var(--disp);font-size:16px;letter-spacing:.08em;font-weight:400;display:block;margin-bottom:6px;color:var(--mustard)}
+.policy div{padding:2px 0}
+.tg{display:inline-flex;align-items:center;gap:10px;margin-top:22px;background:var(--paper);color:var(--ink);border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);padding:10px 18px;font-family:var(--disp);font-size:20px;letter-spacing:.06em}
+.tg svg{width:22px;height:22px;flex:none}
+.tg small{font-family:var(--sans);font-size:12px;letter-spacing:0;color:var(--muted)}
+.contact .r{padding:40px;background:var(--paper2);min-width:0}
+.field{margin-bottom:16px}
+.field label{font-family:var(--disp);font-size:17px;letter-spacing:.06em;display:block;margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;font-family:var(--sans);font-size:16px;padding:12px;border:2px solid var(--ink);background:var(--paper);outline:none;color:var(--ink);border-radius:0}
+.field textarea{min-height:92px;resize:vertical;font-size:14px}
+.field input:focus,.field select:focus,.field textarea:focus{box-shadow:3px 3px 0 var(--rust)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.contact .r .btn{width:100%;margin-top:6px}
+.form-note{font-size:12px;color:var(--muted);margin-top:12px}
+.sent{display:none;margin-top:14px;padding:12px 14px;border:2px solid var(--teal);color:var(--teal);font-weight:600;font-size:14px}
+.field .err{display:none;margin-top:6px;font-size:13px;color:var(--rust);font-weight:600}
+.field.bad input{border-color:var(--rust);box-shadow:3px 3px 0 var(--rust)}
+.field.bad .err{display:block}
+.done{display:none;padding:40px;background:var(--paper2);min-width:0;text-align:center;flex-direction:column;align-items:center;justify-content:center;gap:18px}
+.done.on{display:flex;animation:pop .45s ease}
+.done:focus{outline:none}
+@keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+.done .seal{font-family:var(--disp);font-size:clamp(30px,4vw,42px);line-height:1.05;letter-spacing:.06em;color:var(--rust);border:3px solid var(--rust);outline:1px dashed var(--rust);outline-offset:-9px;padding:18px 26px;transform:rotate(-4deg)}
+.done .hi{font-family:var(--serif);font-size:19px}
+.done .sum{width:100%;max-width:420px;text-align:left;border-top:2px solid var(--ink);font-size:14px}
+.done .sum div{display:flex;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.done .sum span{color:var(--muted)}
+.done .sum b{font-weight:600;text-align:right}
+.done .next{font-size:14px;max-width:420px;color:var(--teal);font-weight:600}
+.done .btn{font-size:18px;padding:10px 20px}
+@media(max-width:860px){.done{padding:32px 20px}}
+@media(max-width:860px){.contact{grid-template-columns:1fr}.contact .l,.contact .r{padding:28px 20px}}
+@media(max-width:480px){.two{grid-template-columns:1fr;gap:0}}
+
+footer{padding:28px 0 80px;font-family:var(--disp);font-size:17px;letter-spacing:.1em}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+footer small{font-family:var(--sans);font-size:12px;letter-spacing:.02em;color:var(--muted);width:100%}
+.demo-tag{position:fixed;bottom:16px;left:16px;z-index:60;background:var(--ink);color:var(--mustard);font-family:var(--disp);font-size:15px;letter-spacing:.1em;padding:8px 16px}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#top" class="logo">WOLF <b>&amp;</b> RAVEN</a>
+  <div class="nav-links"><a href="#about">Обо мне</a><a href="#services">Услуги</a><a href="#calc">Расчёт</a><a href="#why">Почему я</a><a href="#reviews">Отзывы</a></div>
+  <a href="#contact" class="nav-cta">ЗАПИСАТЬСЯ</a>
+</nav>
+
+<header class="hero" id="top"><div class="wrap">
+  <div class="band rv"><span>ВИТЕБСК</span><span class="dot"></span><span>СЕМЕЙНАЯ СЪЁМКА</span><span class="dot"></span><span>3 ГОДА ПРАКТИКИ</span><span class="dot"></span><span>ФОТО ЗА 7 ДНЕЙ</span></div>
+  <h1 class="rv">Пока малыш<br><em>маленький</em></h1>
+  <div class="row">
+    <p class="rv">Фотографирую семьи с малышами в Витебске. Снимаю в игре, ребёнка позировать не заставляю. Время съёмки подбираю под сон и кормление малыша. Приезжаю к Вам домой, в парк или в студию. Выезд по городу бесплатно.</p>
+    <div class="stamp rv">ВЫЕЗД<br>ПО ГОРОДУ<br>★ 0 РУБ ★</div>
+  </div>
+  <div class="rv" style="margin-top:30px;display:flex;gap:16px;flex-wrap:wrap"><a href="#calc" class="btn">РАССЧИТАТЬ СЪЁМКУ</a><a href="#services" class="btn ghost">УСЛУГИ И ЦЕНЫ</a></div>
+
+  <div class="strip rv" aria-label="Места для фотографий">
+    <div class="frame f1"><img src="img/dom.jpg" alt="Малышка играет с игрушками дома" width="547" height="683" loading="lazy"><svg viewBox="0 0 64 64" fill="none" stroke="#efe3cc" stroke-width="2.5"><circle cx="22" cy="20" r="7"/><circle cx="42" cy="20" r="7"/><circle cx="32" cy="38" r="5"/><path d="M10 58c0-9 6-16 12-16s8 4 10 4 4-4 10-4 12 7 12 16"/></svg><div class="cap">ДОМА · МАЛЫШ</div></div>
+    <div class="frame f2"><img src="img/park.jpg" alt="Папа ведёт малыша за руку по осенним листьям" width="400" height="500" loading="lazy"><svg viewBox="0 0 64 64" fill="none" stroke="#efe3cc" stroke-width="2.5"><path d="M32 6c-9 10-14 18-14 26a14 14 0 0028 0c0-8-5-16-14-26z"/><path d="M32 60V30"/></svg><div class="cap">В ПАРКЕ</div></div>
+    <div class="frame f3"><img src="img/reka.jpg" alt="Семья с двумя дочками у воды осенью" width="547" height="683" loading="lazy"><svg viewBox="0 0 64 64" fill="none" stroke="#efe3cc" stroke-width="2.5"><circle cx="32" cy="24" r="10"/><path d="M32 6v4M32 38v4M14 24h4M46 24h4M19 11l3 3M42 34l3 3M45 11l-3 3M22 34l-3 3"/><path d="M6 54c8-6 18-6 26 0s18 6 26 0"/></svg><div class="cap">У РЕКИ</div></div>
+    <div class="frame f4"><img src="img/studiya.jpg" alt="Двое смеющихся детей на белом фоне" width="517" height="646" loading="lazy"><svg viewBox="0 0 64 64" fill="none" stroke="#efe3cc" stroke-width="2.5"><rect x="8" y="18" width="48" height="34" rx="3"/><circle cx="32" cy="35" r="10"/><path d="M22 18l4-7h12l4 7"/></svg><div class="cap">СТУДИЯ</div></div>
+  </div>
+  <div class="strip-note rv">Демо-концепция: фото-примеры из открытых источников (CC BY 2.0, авторы внизу страницы). Здесь будут Ваши фотографии из съёмок.</div>
+</div></header>
+
+<div class="tick" aria-hidden="true"><div class="r"><span>СЕМЕЙНАЯ СЪЁМКА ✶ БЕРЕМЕННОСТЬ ✶ «ПОКОЛЕНИЯ» ✶ <em>ПЕРВЫЙ ГОД МАЛЫША</em> ✶ ВЫЕЗД ПО ВИТЕБСКУ БЕСПЛАТНО ✶ ФОТО ЗА 7 ДНЕЙ ✶</span><span>СЕМЕЙНАЯ СЪЁМКА ✶ БЕРЕМЕННОСТЬ ✶ «ПОКОЛЕНИЯ» ✶ <em>ПЕРВЫЙ ГОД МАЛЫША</em> ✶ ВЫЕЗД ПО ВИТЕБСКУ БЕСПЛАТНО ✶ ФОТО ЗА 7 ДНЕЙ ✶</span></div></div>
+
+<section id="about"><div class="wrap about">
+  <div class="rv">
+    <div class="h2">Меня зовут <em>Wolf</em></div>
+    <p style="margin-top:20px">Три года снимаю семьи в Витебске. Чаще всего это молодые родители с малышами: первые месяцы, первые шаги, первый день рождения.</p>
+    <p>Малыши не позируют, и не надо. Я снимаю в игре: пока ребёнок занят, а родители смеются, получаются настоящие кадры. Время съёмки подбираю под режим малыша, чтобы он был выспавшимся и сытым.</p>
+    <ul>
+      <li><b>01</b><span>Перед съёмкой подскажу, что надеть и где снимать.</span></li>
+      <li><b>02</b><span>Если Вы стесняетесь камеры, это нормально. Подскажу, куда встать и что делать.</span></li>
+      <li><b>03</b><span>Фото присылаю через 7 дней по закрытой ссылке.</span></li>
+    </ul>
+  </div>
+  <div class="card photo rv"><img src="img/obektiv.jpg" alt="Объектив фотокамеры крупным планом" width="640" height="640" loading="lazy"><div class="note"><b>СЮДА МОЖНО ВСТАВИТЬ ЛЮБОЕ ВАШЕ ФОТО</b><span>фото автора будущих фотосессий</span></div></div>
+</div></section>
+
+<section id="services"><div class="wrap">
+  <div class="h2 rv">Услуги <em>и цены</em></div>
+  <div class="lead rv">четыре вида съёмки, цены в белорусских рублях</div>
+  <div class="menu rv">
+    <div class="item hl"><span class="tag">ГЛАВНАЯ</span><div class="n">01</div><h3>Семейная съёмка</h3><p>Для семей с малышами: дома, в студии или на прогулке.</p>
+      <ul><li>1 час съёмки</li><li>50–70 фото в обработке</li><li>20 из них в ретуши</li></ul>
+      <div class="pr">200 руб</div></div>
+    <div class="item"><div class="n">02</div><h3>Беременность</h3><p>Спокойная съёмка в ожидании малыша, можно с партнёром.</p>
+      <ul><li>1 час съёмки</li><li>50–70 фото в обработке</li><li>25 из них в ретуши</li></ul>
+      <div class="pr">200 руб</div></div>
+    <div class="item"><div class="n">03</div><h3>«Поколения»</h3><p>Бабушки, дедушки, родители и внуки в одном кадре.</p>
+      <ul><li>1 час съёмки</li><li>50–70 фото в обработке</li><li>20 из них в ретуши</li></ul>
+      <div class="pr">230 руб</div></div>
+    <div class="item"><div class="n">04</div><h3>Первый год малыша</h3><p>Абонемент: съёмки в 3, 6, 9 месяцев и в 1 год.</p>
+      <ul><li>4 съёмки по 1 часу</li><li>от 200 фото за год</li><li>25 в ретуши с каждой съёмки</li></ul>
+      <div class="pr">750 руб <small>вместо 800</small></div></div>
+  </div>
+  <div class="incl rv"><span>Консультация перед съёмкой</span><span>Помощь с образом и местом</span><span>Выезд по Витебску бесплатно</span><span>Фото через 7 дней в облаке</span><span>Повторная съёмка −5%</span></div>
+</div></section>
+
+<section id="calc"><div class="wrap">
+  <div class="h2 rv">Сколько <em>будет стоить</em></div>
+  <div class="lead rv">выберите съёмку и место, сумма посчитается сразу</div>
+  <div class="calc rv">
+    <div>
+      <fieldset><legend>ВИД СЪЁМКИ</legend><div class="opts">
+        <label class="opt"><input type="radio" name="svc" value="family" checked><span><b>Семейная</b>1 час · 200 руб</span></label>
+        <label class="opt"><input type="radio" name="svc" value="preg"><span><b>Беременность</b>1 час · 200 руб</span></label>
+        <label class="opt"><input type="radio" name="svc" value="gen"><span><b>«Поколения»</b>1 час · 230 руб</span></label>
+        <label class="opt"><input type="radio" name="svc" value="year"><span><b>Первый год</b>4 съёмки · 750 руб</span></label>
+      </div></fieldset>
+      <fieldset><legend>ГДЕ СНИМАЕМ</legend><div class="opts">
+        <label class="opt"><input type="radio" name="loc" value="home" checked><span><b>Дома</b>выезд бесплатно</span></label>
+        <label class="opt"><input type="radio" name="loc" value="park"><span><b>На природе</b>Мазурино, набережная, Летний амфитеатр</span></label>
+        <label class="opt"><input type="radio" name="loc" value="studio"><span><b>Студия</b>аренду оплачиваете студии</span></label>
+      </div></fieldset>
+      <fieldset><legend>СКИДКА</legend>
+        <label class="chk"><input type="checkbox" id="repeat"><span>Мы уже снимались у Wolf &amp; Raven, это повторная съёмка (−5%)</span></label>
+      </fieldset>
+    </div>
+    <div class="receipt" aria-live="polite">
+      <div class="t">ВАШ РАСЧЁТ</div>
+      <div class="ln"><span>Съёмка</span><span id="rSvc">Семейная съёмка</span></div>
+      <div class="ln"><span>Что входит</span><span id="rInc">1 час · 50–70 фото</span></div>
+      <div class="ln"><span>Место</span><span id="rLoc">Дома</span></div>
+      <div class="ln"><span>Выезд по Витебску</span><span>0 руб</span></div>
+      <div class="ln" id="rDiscRow" style="display:none"><span>Скидка 5%</span><span id="rDisc">−10 руб</span></div>
+      <div class="tot"><b>ИТОГО</b><strong id="rTot">200 руб</strong></div>
+      <div class="pre" id="rPre">Предоплата 50%: 100 руб</div>
+      <div class="note" id="rNote">Фото через 7 дней по закрытой ссылке.</div>
+      <button class="btn" type="button" id="toForm">ОТПРАВИТЬ РАСЧЁТ</button>
+    </div>
+  </div>
+</div></section>
+
+<section id="why"><div class="wrap">
+  <div class="h2 rv">Почему <em>со мной</em> спокойно</div>
+  <div class="lead rv">чего обычно боятся родители и как я с этим работаю</div>
+  <div class="stats rv">
+    <div class="st"><b>3</b><span>года снимаю семьи</span></div>
+    <div class="st"><b>7</b><span>дней до готовых фото</span></div>
+    <div class="st"><b>1 ч</b><span>отвечаю на заявку с 9 до 21</span></div>
+    <div class="st"><b>0</b><span>руб за выезд по городу</span></div>
+  </div>
+  <div class="fears rv">
+    <div class="fear"><div class="i">01</div><div><h4>«Ребёнок раскапризничается»</h4><p>Снимаю в игре и не заставляю позировать. Время подбираем под сон и кормление малыша.</p></div></div>
+    <div class="fear"><div class="i">02</div><div><h4>«Мы не умеем позировать»</h4><p>Это и не нужно. Подскажу, куда встать и чем заняться. Кадры получаются, пока Вы просто играете с ребёнком.</p></div></div>
+    <div class="fear"><div class="i">03</div><div><h4>«Фотограф неопытный»</h4><p>Три года снимаю семьи в Витебске. Перед записью покажу полные съёмки, а не только лучшие кадры.</p></div></div>
+    <div class="fear"><div class="i">04</div><div><h4>«Выйдет дорого»</h4><p>Все цены выше, на этой странице. Съёмка от 200 руб, выезд по городу бесплатно.</p></div></div>
+    <div class="fear"><div class="i">05</div><div><h4>«Будут скрытые доплаты»</h4><p>Отдельно платится только аренда студии, и только если Вы выбрали студию. Деньги за неё получает студия, а не я.</p></div></div>
+    <div class="fear"><div class="i">06</div><div><h4>«Фото придут через месяц»</h4><p>Присылаю через 7 дней по закрытой ссылке в облаке. Скачать можно сразу все.</p></div></div>
+    <div class="fear"><div class="i">07</div><div><h4>«Внесём предоплату, а фотограф пропадёт»</h4><p>С 9 до 21 отвечаю на заявку в течение часа. Если я заболею или не смогу приехать, верну предоплату полностью.</p></div></div>
+  </div>
+</div></section>
+
+<section id="reviews"><div class="wrap">
+  <div class="h2 rv">Что <em>говорят</em> семьи</div>
+  <div class="lead rv">место для отзывов Ваших клиентов</div>
+  <div class="revs rv">
+    <div class="rev slot"><span class="ex">ОТЗЫВ 1</span><span class="q" aria-hidden="true">“</span><div class="note"><b>СЮДА МОЖНО ВСТАВИТЬ ОТЗЫВ ВАШЕГО КЛИЕНТА</b><span>текст отзыва, имя и с кем была съёмка</span></div></div>
+    <div class="rev slot"><span class="ex">ОТЗЫВ 2</span><span class="q" aria-hidden="true">“</span><div class="note"><b>СЮДА МОЖНО ВСТАВИТЬ СКРИНШОТ ОТЗЫВА</b><span>из Instagram, Telegram или переписки с клиентом</span></div></div>
+    <div class="rev slot"><span class="ex">ОТЗЫВ 3</span><span class="q" aria-hidden="true">“</span><div class="note"><b>СЮДА МОЖНО ВСТАВИТЬ ФОТО СЕМЬИ С ОТЗЫВОМ</b><span>кадр из съёмки и пара слов от родителей</span></div></div>
+  </div>
+  <div class="rev-note rv">Демо-концепция: здесь появятся отзывы реальных клиентов с именем и ссылкой на источник.</div>
+</div></section>
+
+<section id="contact" style="border-bottom:none"><div class="wrap">
+  <div class="contact rv">
+    <div class="l">
+      <h2>Запишитесь<br>на съёмку</h2>
+      <p>Оставьте заявку или напишите в Telegram. Вот что будет дальше:</p>
+      <ol class="steps">
+        <li><span>Отвечаю на заявку в течение часа, с 9 до 21. Если написали ночью, отвечу утром.</span></li>
+        <li><span>Договариваемся о дате, времени и месте.</span></li>
+        <li><span>Вы вносите предоплату 50%.</span></li>
+        <li><span>Подсказываю, как подготовиться, и подбираем время под режим малыша.</span></li>
+        <li><span>Съёмка, а через 7 дней фото по закрытой ссылке.</span></li>
+      </ol>
+      <div class="policy"><b>ЕСЛИ ПЛАНЫ ИЗМЕНИЛИСЬ</b>
+        <div>✶ Ребёнок заболел и Вы предупредили за сутки или раньше: верну предоплату или перенесу съёмку бесплатно, как Вам удобнее.</div>
+        <div>✶ Если заболею или не смогу приехать я: предоплату верну полностью.</div>
+        <div>✶ Плохая погода для съёмки на природе: перенесу бесплатно.</div>
+      </div>
+      <a class="tg" href="#contact" id="tgBtn" title="Демо: подставим Ваш Telegram">
+        <svg viewBox="0 0 24 24" fill="#2c6a5b"><path d="M21.5 3.6L2.9 10.8c-1.3.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.4l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.9-1.3-1.5zM8.6 13.4l9.5-6c.5-.3.9-.1.5.2l-8 7.3-.3 3.3-1.7-4.8z"/></svg>
+        <span>НАПИСАТЬ @VOLF<br><small>демо: подставим Ваш Telegram</small></span>
+      </a>
+    </div>
+    <form class="r" id="form">
+      <div class="field"><label for="fName">ИМЯ</label><input id="fName" name="name" placeholder="Как к Вам обращаться" required autocomplete="name"></div>
+      <div class="field"><label for="fPhone">ТЕЛЕФОН</label><input id="fPhone" name="phone" type="tel" placeholder="+375 (__) ___-__-__" required autocomplete="tel" aria-describedby="fPhoneErr"><div class="err" id="fPhoneErr">Проверьте номер: в нём должно быть не меньше 9 цифр.</div></div>
+      <div class="two">
+        <div class="field"><label for="fSvc">ВИД СЪЁМКИ</label><select id="fSvc" name="service">
+          <option value="family">Семейная съёмка</option><option value="preg">Беременность</option><option value="gen">«Поколения»</option><option value="year">Первый год малыша</option>
+        </select></div>
+        <div class="field"><label for="fDate">ЖЕЛАЕМАЯ ДАТА</label><input id="fDate" name="date" type="date"></div>
+      </div>
+      <div class="field"><label for="fCalc">РАСЧЁТ И ПОЖЕЛАНИЯ</label><textarea id="fCalc" name="comment" placeholder="Например: малышу 7 месяцев, удобно утром"></textarea></div>
+      <button class="btn" type="submit">ОТПРАВИТЬ ЗАЯВКУ</button>
+      <div class="form-note">Демо-концепция: заявки пока никуда не уходят. Позже подключим Telegram-бота, и заявки будут приходить фотографу в Telegram.</div>
+    </form>
+    <div class="done" id="done" role="status" aria-live="polite" tabindex="-1">
+      <div class="seal">ЗАЯВКА<br>ПРИНЯТА ✓</div>
+      <div class="hi" id="dHi">Спасибо!</div>
+      <div class="sum">
+        <div><span>Съёмка</span><b id="dSvc"></b></div>
+        <div><span>Телефон</span><b id="dPhone"></b></div>
+        <div><span>Дата</span><b id="dDate"></b></div>
+      </div>
+      <div class="next">Свяжусь с Вами в течение часа (с 9 до 21, ночные заявки — утром): уточним детали и время под режим малыша.</div>
+      <button class="btn ghost" type="button" id="again">ОТПРАВИТЬ ЕЩЁ ОДНУ</button>
+      <div class="form-note">Демо-концепция: заявка никуда не ушла, это пример экрана после отправки.</div>
+    </div>
+  </div>
+</div></section>
+
+<footer><div class="wrap"><span>WOLF &amp; RAVEN · СЕМЕЙНЫЙ ФОТОГРАФ · ВИТЕБСК</span><span>✶ ПОКА МАЛЫШ МАЛЕНЬКИЙ</span><small>ИП заказчика · УНП ——— (подставим реквизиты) · Учебная демо-концепция, данные условные.</small><small class="credits">Фото: <a href="https://www.flickr.com/photos/26344495@N05/48072066117" target="_blank" rel="noopener">«A cute little girl playing with toys at home»</a> — Ivan Radic; <a href="https://www.flickr.com/photos/28077296@N02/8582976734" target="_blank" rel="noopener">«Daddy»</a> — ThomasKohler; <a href="https://www.flickr.com/photos/11946169@N00/16039757095" target="_blank" rel="noopener">«Christmas Photo 2014»</a> — donnierayjones; <a href="https://www.flickr.com/photos/21042103@N03/4641590379" target="_blank" rel="noopener">«Children Laughing»</a> — Tela Chhe. Все по лицензии <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>; кадрированы и тонированы. Объектив в блоке «Обо мне»: <a href="https://www.rawpixel.com/image/680906/old-analog-camera" target="_blank" rel="noopener">Markus Spiske</a>, CC0.</small></div></footer>
+<a class="demo-tag" href="#contact">✦ ДЕМО · РЕТРО-ПРИНТ</a>
+
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+const SVC={
+  family:{name:'Семейная съёмка',price:200,inc:'1 час · 50–70 фото'},
+  preg:{name:'Беременность',price:200,inc:'1 час · 50–70 фото'},
+  gen:{name:'«Поколения»',price:230,inc:'1 час · 50–70 фото'},
+  year:{name:'Первый год малыша',price:750,inc:'4 съёмки · от 200 фото'}
+};
+const LOC={home:'Дома',park:'На природе',studio:'Студия'};
+const $=id=>document.getElementById(id);
+const val=n=>document.querySelector('input[name="'+n+'"]:checked').value;
+let last='';
+function calc(){
+  const s=SVC[val('svc')],loc=val('loc'),rep=$('repeat').checked;
+  const disc=rep?Math.round(s.price*0.05):0;
+  const tot=s.price-disc,pre=Math.round(tot/2);
+  $('rSvc').textContent=s.name;$('rInc').textContent=s.inc;$('rLoc').textContent=LOC[loc];
+  $('rDiscRow').style.display=rep?'flex':'none';$('rDisc').textContent='−'+disc+' руб';
+  $('rTot').textContent=tot+' руб';$('rPre').textContent='Предоплата 50%: '+pre+' руб';
+  $('rNote').textContent=loc==='studio'
+    ?'Аренда студии в сумму не входит: её оплачиваете студии по её тарифу. Помогу выбрать студию.'
+    :(loc==='park'?'Если будет плохая погода, перенесу съёмку бесплатно. ':'')+'Фото через 7 дней по закрытой ссылке.';
+  last='Расчёт: '+s.name+', '+LOC[loc]+(rep?', повторная съёмка −5%':'')+'. Итого '+tot+' руб, предоплата '+pre+' руб.'+(loc==='studio'?' Аренда студии отдельно.':'');
+}
+document.querySelectorAll('#calc input').forEach(i=>i.addEventListener('change',calc));
+calc();
+$('toForm').addEventListener('click',()=>{
+  $('fSvc').value=val('svc');
+  const t=$('fCalc');t.value=last+(t.value&&!t.value.startsWith('Расчёт:')?'\n'+t.value:'');
+  $('contact').scrollIntoView({behavior:'smooth'});
+  setTimeout(()=>$('fName').focus({preventScroll:true}),600);
+});
+const phoneOk=()=>$('fPhone').value.replace(/\D/g,'').length>=9;
+$('fPhone').addEventListener('input',()=>{if(phoneOk())$('fPhone').parentNode.classList.remove('bad')});
+$('form').addEventListener('submit',e=>{
+  e.preventDefault();
+  if(!phoneOk()){$('fPhone').parentNode.classList.add('bad');$('fPhone').focus();return;}
+  const name=$('fName').value.trim(),d=$('fDate').value;
+  $('dHi').textContent='Спасибо, '+name+'!';
+  $('dSvc').textContent=$('fSvc').options[$('fSvc').selectedIndex].text;
+  $('dPhone').textContent=$('fPhone').value.trim();
+  $('dDate').textContent=d?d.split('-').reverse().join('.'):'обсудим';
+  $('form').style.display='none';
+  $('done').classList.add('on');$('done').focus({preventScroll:true});
+});
+$('again').addEventListener('click',()=>{
+  $('form').reset();$('done').classList.remove('on');$('form').style.display='';$('fName').focus();
+});
+$('tgBtn').addEventListener('click',e=>{e.preventDefault();alert('Демо-концепция: здесь будет ссылка на Ваш Telegram.');});
+</script>
+</body>
+</html>
