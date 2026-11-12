@@ -209,6 +209,10 @@ section{padding:clamp(56px,8vw,96px) 0;border-bottom:2px solid var(--line)}
 .field .err{display:none;margin-top:6px;font-size:13px;color:var(--rust);font-weight:600}
 .field.bad input{border-color:var(--rust);box-shadow:3px 3px 0 var(--rust)}
 .field.bad .err{display:block}
+.send-err{display:none;margin-top:10px;font-size:13px;color:var(--rust);font-weight:600}
+.send-err.on{display:block}
+.contact .r .btn:disabled{opacity:.6;cursor:wait;transform:none}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .done{display:none;padding:40px;background:var(--paper2);min-width:0;text-align:center;flex-direction:column;align-items:center;justify-content:center;gap:18px}
 .done.on{display:flex;animation:pop .45s ease}
 .done:focus{outline:none}
@@ -376,9 +380,9 @@ footer small{font-family:var(--sans);font-size:12px;letter-spacing:.02em;color:v
         <div>✶ Если заболею или не смогу приехать я: предоплату верну полностью.</div>
         <div>✶ Плохая погода для съёмки на природе: перенесу бесплатно.</div>
       </div>
-      <a class="tg" href="#contact" id="tgBtn" title="Демо: подставим Ваш Telegram">
+      <a class="tg" href="https://t.me/Bot_t_p_v57_bot" id="tgBtn" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="#2c6a5b"><path d="M21.5 3.6L2.9 10.8c-1.3.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.4l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.9-1.3-1.5zM8.6 13.4l9.5-6c.5-.3.9-.1.5.2l-8 7.3-.3 3.3-1.7-4.8z"/></svg>
-        <span>НАПИСАТЬ @VOLF<br><small>демо: подставим Ваш Telegram</small></span>
+        <span>НАПИСАТЬ В TELEGRAM<br><small>@Bot_t_p_v57_bot</small></span>
       </a>
     </div>
     <form class="r" id="form">
@@ -391,8 +395,10 @@ footer small{font-family:var(--sans);font-size:12px;letter-spacing:.02em;color:v
         <div class="field"><label for="fDate">ЖЕЛАЕМАЯ ДАТА</label><input id="fDate" name="date" type="date"></div>
       </div>
       <div class="field"><label for="fCalc">РАСЧЁТ И ПОЖЕЛАНИЯ</label><textarea id="fCalc" name="comment" placeholder="Например: малышу 7 месяцев, удобно утром"></textarea></div>
-      <button class="btn" type="submit">ОТПРАВИТЬ ЗАЯВКУ</button>
-      <div class="form-note">Демо-концепция: заявки пока никуда не уходят. Позже подключим Telegram-бота, и заявки будут приходить фотографу в Telegram.</div>
+      <div class="hp" aria-hidden="true"><label for="fSite">Не заполняйте это поле</label><input id="fSite" name="website" tabindex="-1" autocomplete="off"></div>
+      <button class="btn" type="submit" id="send">ОТПРАВИТЬ ЗАЯВКУ</button>
+      <div class="send-err" id="sendErr" role="alert"></div>
+      <div class="form-note">Заявка сразу приходит фотографу в Telegram.</div>
     </form>
     <div class="done" id="done" role="status" aria-live="polite" tabindex="-1">
       <div class="seal">ЗАЯВКА<br>ПРИНЯТА ✓</div>
@@ -404,7 +410,6 @@ footer small{font-family:var(--sans);font-size:12px;letter-spacing:.02em;color:v
       </div>
       <div class="next">Свяжусь с Вами в течение часа (с 9 до 21, ночные заявки — утром): уточним детали и время под режим малыша.</div>
       <button class="btn ghost" type="button" id="again">ОТПРАВИТЬ ЕЩЁ ОДНУ</button>
-      <div class="form-note">Демо-концепция: заявка никуда не ушла, это пример экрана после отправки.</div>
     </div>
   </div>
 </div></section>
@@ -448,10 +453,29 @@ $('toForm').addEventListener('click',()=>{
 });
 const phoneOk=()=>$('fPhone').value.replace(/\D/g,'').length>=9;
 $('fPhone').addEventListener('input',()=>{if(phoneOk())$('fPhone').parentNode.classList.remove('bad')});
-$('form').addEventListener('submit',e=>{
+// Заявки принимает Telegram-бот фотографа (boty-zadanie/worker.js, адрес /lead).
+const LEAD_URL='https://wolf-raven-bot.volk-studio.workers.dev/lead';
+const SEND_ERR={
+  limit:'Слишком много заявок подряд. Попробуйте через час или напишите в Telegram.',
+  fields:'Проверьте имя и телефон.',
+  other:'Не получилось отправить заявку. Проверьте интернет и нажмите ещё раз или напишите в Telegram.'
+};
+function sendErr(t){$('sendErr').textContent=t||'';$('sendErr').classList.toggle('on',!!t);}
+$('form').addEventListener('submit',async e=>{
   e.preventDefault();
   if(!phoneOk()){$('fPhone').parentNode.classList.add('bad');$('fPhone').focus();return;}
   const name=$('fName').value.trim(),d=$('fDate').value;
+  const btn=$('send');
+  btn.disabled=true;btn.textContent='ОТПРАВЛЯЮ…';sendErr('');
+  let err='other';
+  try{
+    const r=await fetch(LEAD_URL,{method:'POST',headers:{'content-type':'application/json'},signal:AbortSignal.timeout(15000),
+      body:JSON.stringify({name,phone:$('fPhone').value.trim(),service:$('fSvc').value,date:d,comment:$('fCalc').value.trim(),website:$('fSite').value})});
+    const j=await r.json().catch(()=>({}));
+    err=j.ok?'':(SEND_ERR[j.error]?j.error:'other');
+  }catch(x){}
+  btn.disabled=false;btn.textContent='ОТПРАВИТЬ ЗАЯВКУ';
+  if(err){sendErr(SEND_ERR[err]);return;}
   $('dHi').textContent='Спасибо, '+name+'!';
   $('dSvc').textContent=$('fSvc').options[$('fSvc').selectedIndex].text;
   $('dPhone').textContent=$('fPhone').value.trim();
@@ -460,9 +484,7 @@ $('form').addEventListener('submit',e=>{
   $('done').classList.add('on');$('done').focus({preventScroll:true});
 });
 $('again').addEventListener('click',()=>{
-  $('form').reset();$('done').classList.remove('on');$('form').style.display='';$('fName').focus();
-});
-$('tgBtn').addEventListener('click',e=>{e.preventDefault();alert('Демо-концепция: здесь будет ссылка на Ваш Telegram.');});
-</script>
+  $('form').reset();sendErr('');$('done').classList.remove('on');$('form').style.display='';$('fName').focus();
+});</script>
 </body>
 </html>
